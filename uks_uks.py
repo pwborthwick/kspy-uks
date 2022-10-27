@@ -202,14 +202,14 @@ class pKS(object):
 
         #get occupied coefficients
         mo_occupation = self.mom(mo_energy, mo_coeff, s)
-
-        #alpha and beta density matrix
-        d = set if type(set) == np.ndarray else self.get_density_matrix(mo_coeff, mo_occupation)
-
+        
         #unrestricted handler for closed closed shell
         mm = mo_coeff.copy()
         if (not self.open) and self.closed_shell_behavior != 'r' : 
             mo_coeff = self.closed_shell(mo_coeff)
+
+        #alpha and beta density matrix
+        d = set if type(set) == np.ndarray else self.get_density_matrix(mo_coeff, mo_occupation)
 
         vxc, eSCF = get_energy(d, h_core, eri, ao, weights)
 
